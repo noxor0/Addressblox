@@ -5,6 +5,7 @@ functions.
 import unittest
 from unittest.mock import patch
 
+from time import sleep
 from contextlib import contextmanager
 from io import StringIO
 import sys
@@ -41,6 +42,7 @@ class TestSearch(unittest.TestCase):
     def test_handle_abbreviations(self):
         actual = set(['st', 'ave', 'blvd', 'ln'])
         search.handle_abbreviations(actual)
+        sleep(.1)
         expected = set(['street', 'avenue', 'boulevard', 'lane'])
         self.assertEqual(actual, expected)
 

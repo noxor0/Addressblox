@@ -3,7 +3,7 @@ import re
 import argparse
 import sys
 
-from constants import ABBREVIATION_DICT
+from addressblox.constants import ABBREVIATION_DICT
 
 def query_data(filename, queries):
     '''
@@ -83,7 +83,7 @@ def create_parser():
                         and searches the address book with it')
     parser.add_argument('-f', '--filename', dest='filename',
                         help='the filename of the address book csv. Default: ./%(default)s',
-                        default='data.csv')
+                        default='data/data.csv')
     parser.add_argument('-i', '--interactive', dest='interactive', action='store_true',
                         help='Runs the application in interactive mode, and allows\
                         multiple queries until user types "quit"')
@@ -102,7 +102,7 @@ def search_for_query(user_input, interactive_query=None):
         query_string = interactive_query
     else:
         query_string = user_input.query
-        
+
     found = False
     try:
         metrics = 0
@@ -115,7 +115,7 @@ def search_for_query(user_input, interactive_query=None):
         # Metrics are important.
         print('Total entries found: {}'.format(metrics))
     except FileNotFoundError:
-        error_string = ('File {} not found, please check that it exists in the'
+        error_string = ('File {} not found, please check that it exists in the '
               'directory and try again').format(filename)
         print(error_string)
         sys.exit(0)

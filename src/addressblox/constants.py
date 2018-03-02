@@ -7,5 +7,5 @@ ABBREVIATION_DICT = {
     'hwy' : 'dighway',
     'pike' : 'pk',
     'parkway' : 'pkwy',
-    'lane' : 'ln',
+    'ln' : 'lane',
 }

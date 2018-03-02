@@ -1,3 +1,7 @@
+'''
+Tests all functions in the search file, this includes testing the stdin/stdout
+functions.
+'''
 import unittest
 from unittest.mock import patch
 
@@ -20,19 +24,19 @@ def captured_output():
     Really clever way to handle checking stdout that I hadnt thought of.
     https://stackoverflow.com/questions/4219717/how-to-assert-output-with-nosetest-unittest-in-python
     '''
-    new_out, new_err = StringIO(), StringIO()
-    old_out, old_err = sys.stdout, sys.stderr
+    new_out = StringIO()
+    old_out = sys.stdout
     try:
-        sys.stdout, sys.stderr = new_out, new_err
-        yield sys.stdout, sys.stderr
+        sys.stdout = new_out
+        yield sys.stdout
     finally:
-        sys.stdout, sys.stderr = old_out, old_err
+        sys.stdout = old_out
 
 class TestSearch(unittest.TestCase):
     def setUp(self):
         self.user_input_namespace = Namespace(query=['Dave', '123'],
-                                        filename='data/data.csv',
-                                        interactive='False')
+                                              filename='data/data.csv',
+                                              interactive='False')
 
     def test_handle_abbreviations(self):
         actual = set(['st', 'ave', 'blvd', 'ln'])
@@ -43,7 +47,7 @@ class TestSearch(unittest.TestCase):
 
     def test_search_for_query(self):
         expected = 'Dave Smith 123 main st. seattle wa 43'
-        with captured_output() as (out, err):
+        with captured_output() as out:
             search.search_for_query(self.user_input_namespace)
             actual = out.getvalue().strip()
             self.assertIn(expected, actual)
@@ -51,7 +55,7 @@ class TestSearch(unittest.TestCase):
     @patch.object(search, "input", create=True)
     def test_interactive_mode(self, input):
         expected = 'Total entries found: 0'
-        with captured_output() as (out, err):
+        with captured_output() as out:
             # Yeah i cannot believe that worked
             values = ['not in there', 'quit']
             input.return_value = values.pop()
@@ -60,11 +64,11 @@ class TestSearch(unittest.TestCase):
             self.assertIn(expected, actual)
 
     def test_query_data(self):
-        expected = '"Dave","Smith","123 main st.","seattle","wa","43"'
+        expected = ["Dave", "Smith", "123 main st.", "seattle", "wa", "43"]
         query_generator = search.query_data(self.user_input_namespace.filename,
                                             self.user_input_namespace.query)
         for return_val in query_generator:
-            self.assertEqual(expected, expected)
+            self.assertEqual(expected, return_val)
 
 
     def test_multiple_query_data(self):
@@ -73,7 +77,7 @@ class TestSearch(unittest.TestCase):
                     '"Ian","smith","123 main st ","Seattle","Wa","18"',
                     '"EvE","Smith","234 2nd Ave.","Tacoma","WA","25"',
                     '"Jane","Smith","123 Main St.","Seattle","WA","13"',
-                ]
+                   ]
 
         query_generator = search.query_data(self.user_input_namespace.filename,
                                             'smith')
@@ -85,7 +89,7 @@ class TestSearch(unittest.TestCase):
                     '"Carol","Johnson","234 2nd Ave","Seattle","WA","67"',
                     '"EvE","Smith","234 2nd Ave.","Tacoma","WA","25"',
                     '"Frank","Jones","234 2nd Ave.","Tacoma","FL","23"'
-                ]
+                   ]
 
         query_generator = search.query_data(self.user_input_namespace.filename,
                                             'avenue')

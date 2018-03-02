@@ -1,9 +1,17 @@
+'''
+Handles CSV search functionality. Uses a set intersection to find matching queries.
+Aimed to creating a high cohesion, low coupling class that can be used for future
+DB intergrations.
+
+:author: Connor Cox
+:date: 03.02.2018
+'''
 import csv
 import re
 import argparse
 import sys
 
-from addressblox.constants import ABBREVIATION_DICT
+from addressblox.constants import ABBREVIATION_DICT, DEFAULT_DATA_PATH
 
 def query_data(filename, queries):
     '''
@@ -53,7 +61,7 @@ def format_list(entry_list):
         return formatted_set
 
     for entry in entry_list:
-        entry = re.sub('[^0-9a-zA-Z\s]+', '', entry)
+        entry = re.sub(r'[^0-9a-zA-Z\s]+', '', entry)
         entry = entry.lower().strip()
         if ' ' in entry:
             address = entry.split()
@@ -83,7 +91,7 @@ def create_parser():
                         and searches the address book with it')
     parser.add_argument('-f', '--filename', dest='filename',
                         help='the filename of the address book csv. Default: ./%(default)s',
-                        default='data/data.csv')
+                        default=DEFAULT_DATA_PATH)
     parser.add_argument('-i', '--interactive', dest='interactive', action='store_true',
                         help='Runs the application in interactive mode, and allows\
                         multiple queries until user types "quit"')
@@ -116,7 +124,7 @@ def search_for_query(user_input, interactive_query=None):
         print('Total entries found: {}'.format(metrics))
     except FileNotFoundError:
         error_string = ('File {} not found, please check that it exists in the '
-              'directory and try again').format(filename)
+                        'directory and try again').format(filename)
         print(error_string)
         sys.exit(0)
 
@@ -133,9 +141,9 @@ def interactive_mode(user_input):
     :params user_input: namespace that has the pased user input. This contains
     the query, the filename, and if the program is to be run in interactive mode.
     '''
-    interactive_text =('Type the name, address, or age of the person you want to look up\n'
-                      'Blank query will return all entries\n'
-                      '> ')
+    interactive_text = ('Type the name, address, or age of the person you want to look up\n'
+                        'Blank query will return all entries\n'
+                        '> ')
     try:
         interactive_query = None
         while interactive_query != ['quit']:
@@ -148,6 +156,9 @@ def interactive_mode(user_input):
         sys.exit(0)
 
 def main():
+    '''
+    Main method of the function, exits on completion.
+    '''
     # parse
     parser = create_parser()
     user_input = parser.parse_args()

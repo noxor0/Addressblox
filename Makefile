@@ -50,7 +50,7 @@ stop: ## Stop and remove a running container
 
 clean: stop ## Alias for stop, no extra files are made that are needed to remove
 
-run: ## Run the addressbook in interactive mode
+run: ## Run the docker container
 	@echo
 	@echo "----- Starting Container -----"
 	@echo

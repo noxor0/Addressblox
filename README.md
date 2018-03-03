@@ -12,7 +12,7 @@ make all
 *Note: If docker is not properly setup on your machine, you may have to docker as root to get full functionality.*
 
 ## Usage
-`make all` will automatically set you up with an interactive prompt to search for address entries. If container is running, and you would like to restart the interactive prompt use `make interact`
+`make all` will automatically set you up with an interactive prompt to search for address entries. If container is running and you would like to restart the interactive prompt, use `make interact`.
 
 If a single look up is required running `./singlelookup.sh` provides the same functionality in an alternative package.
 `./singlelookup.sh -h` for all the available commands.

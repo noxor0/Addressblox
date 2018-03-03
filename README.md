@@ -15,8 +15,11 @@ make all
 `make all` will automatically set you up with an interactive prompt to search for address entries.
 
 If a single look up is required running `./singlelookup.sh` provides the same functionality in an alternative package.
-`./singleloopup.sh -h` for all the available commands.
+`./singlelookup.sh -h` for all the available commands.
 
-Addressblox comes with a variety of easy to use commands to give you full control over the program. `make help` will provide alternative commands.# AddressBlox
+Addressblox comes with a variety of easy to use commands to give you full control over the program. `make help` will provide alternative commands.
 
-A simple address book implementation for all your address book needs
+A simple address book implementation for all your address book needs.
+
+## Sprint Board
+Can be found [here](https://docs.google.com/spreadsheets/d/1yak-cNcikx1f9nvNYInIvDK-7EJftMJWaT8gevyBo4k/edit?usp=sharing)

@@ -1,3 +1,22 @@
 # AddressBlox
 
+A dockerized simple address book implementation for all your address book needs. Need to find someone in your sizable address book? AddressBlox will search your address, and find any entry by name, address, or even age! With mulitple ways to use the program, Addressblox is sure find its way into your life!
+
+AddressBlox offers an interactive mode that allows you to search multiple different people in succession! Additionally, AddressBlox comes with an easy to use script that allows you to do single quick and dirty searches.
+
+## Setup
+A quick setup for AdressBlox is a simple make target that will `build`, `run`, and then start the `interact`ive AddressBlox prompt. 
+```
+make all
+```
+*Note: If docker is not properly setup on your machine, you may have to docker as root to get full functionality.*
+
+## Usage
+`make all` will automatically set you up with an interactive prompt to search for address entries.
+
+If a single look up is required running `./singlelookup.sh` provides the same functionality in an alternative package.
+`./singleloopup.sh -h` for all the available commands.
+
+Addressblox comes with a variety of easy to use commands to give you full control over the program. `make help` will provide alternative commands.# AddressBlox
+
 A simple address book implementation for all your address book needs

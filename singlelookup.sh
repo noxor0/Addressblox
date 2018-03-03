@@ -4,6 +4,7 @@ DOCKER_NAME=${DOCKER_NAME:1:${#DOCKER_NAME}-1}
 app_running=$(docker ps | grep -o $DOCKER_NAME)
 
 if [[ ${#app_running} == 0 ]] ; then
+  echo "Docker container not found, rebuilding now"
   make build
   make run
 fi

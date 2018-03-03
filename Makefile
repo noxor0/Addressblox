@@ -60,7 +60,7 @@ run: ## Run the addressbook in interactive mode
 	@echo "----- Running -----"
 	@echo
 
-interact: ## Executes the address book program in the docker container
+interact: ## Executes the address book program in the docker container. (May need sudo to work properly)
 	@echo
 	@echo "----- Starting Application -----"
 	@echo

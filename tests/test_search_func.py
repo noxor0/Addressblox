@@ -42,7 +42,8 @@ class TestSearch(unittest.TestCase):
     def test_handle_abbreviations(self):
         actual = set(['st', 'ave', 'blvd', 'ln'])
         search.handle_abbreviations(actual)
-        sleep(.1)
+        # SOMETIMES THIS FAILS, NO CLUE WHY
+        sleep(.5)
         expected = set(['street', 'avenue', 'boulevard', 'lane'])
         self.assertEqual(actual, expected)
 

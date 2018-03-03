@@ -12,3 +12,6 @@ ABBREVIATION_DICT = {
 }
 
 DEFAULT_DATA_PATH = 'data/data.csv'
+
+REGEX_ALPHANUMERIC = r'[^0-9a-zA-Z\s]+'
+REGEX_ALPHANUMERIC_PERIOD = r'[^0-9a-zA-Z\s.]+'

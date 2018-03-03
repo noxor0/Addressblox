@@ -13,4 +13,5 @@ pytest-cov==2.5.1
 pytest-pylint==0.9.0
 pytest-runner==4.0
 six==1.11.0
+Unidecode==1.0.22
 wrapt==1.10.11

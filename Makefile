@@ -36,7 +36,7 @@ build-nc: ## Build the container without caching
 
 stop: ## Stop and remove a running container
 	@echo
-	@echo "----- Stopping $(APP_NAME) container"
+	@echo "----- Stopping $(APP_NAME) container -----"
 	@echo
 
 	@docker stop $(APP_NAME) > /dev/null
@@ -45,7 +45,7 @@ stop: ## Stop and remove a running container
 	@echo "$(APP_NAME) Removed"
 
 	@echo
-	@echo "----- Stopping $(APP_NAME) container"
+	@echo "----- Container Stopped -----"
 	@echo
 
 clean: stop ## Alias for stop, no extra files are made that are needed to remove

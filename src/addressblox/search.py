@@ -10,8 +10,11 @@ import csv
 import re
 import argparse
 import sys
+from unidecode import unidecode
 
-from addressblox.constants import ABBREVIATION_DICT, DEFAULT_DATA_PATH
+from addressblox.constants import (ABBREVIATION_DICT, DEFAULT_DATA_PATH,
+    REGEX_ALPHANUMERIC, REGEX_ALPHANUMERIC_PERIOD)
+
 
 def query_data(filename, queries):
     '''
@@ -23,14 +26,18 @@ def query_data(filename, queries):
     '''
     # Translates the original query list to a set of lowercase values
     queries = format_list(queries)
-    with open(filename, 'r') as csvfile:
+    with open(filename, 'r', encoding='utf-8') as csvfile:
         csv_reader = csv.reader(csvfile)
 
         for row in csv_reader:
-            sanitized_row = format_list(row)
-            intersection = sanitized_row.intersection(queries)
+            formatted_row = format_list(row)
+            intersection = formatted_row.intersection(queries)
             # True when the row has all the values in the query
             if intersection == queries:
+                # Clean up any remaining characters on found strings
+                # DO NOT remove capitalization, this should be maintained
+                for index in range(len(row)):
+                    row[index] = re.sub(REGEX_ALPHANUMERIC_PERIOD, '', row[index])
                 yield row
 
 def handle_abbreviations(entry_set):
@@ -61,7 +68,8 @@ def format_list(entry_list):
         return formatted_set
 
     for entry in entry_list:
-        entry = re.sub(r'[^0-9a-zA-Z\s]+', '', entry)
+        entry = unidecode(entry)
+        entry = re.sub(REGEX_ALPHANUMERIC, '', entry)
         entry = entry.lower().strip()
         if ' ' in entry:
             address = entry.split()

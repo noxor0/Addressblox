@@ -8,12 +8,11 @@ WORKDIR /addressblox
 ADD . /addressblox
 
 ENV PYTHONPATH=src/
+ENV APP_NAME=addressblox
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 RUN python setup.py test
 
-ENTRYPOINT ["/usr/local/bin/python", "src/addressblox/search.py"]
-CMD ["-h"]
-
-#sudo docker run --entrypoint python addressblox-docker setup.py test
+# Using bash to keep container running
+ENTRYPOINT ["/bin/bash"]

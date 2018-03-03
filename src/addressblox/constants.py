@@ -9,6 +9,7 @@ ABBREVIATION_DICT = {
     'pike' : 'pk',
     'parkway' : 'pkwy',
     'ln' : 'lane',
+    'apt' : 'apartment',
 }
 
 DEFAULT_DATA_PATH = 'data/data.csv'
